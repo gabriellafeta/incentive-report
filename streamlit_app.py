@@ -41,7 +41,7 @@ sales_incentive = StringIO(blob_content)
 sales_incentive_df = pd.read_csv(sales_incentive)
 
 
-st.title('Sales Incentive Data')
+st.title('Sales Incentive Dataf ')
 
 # Display the DataFrame
 st.dataframe(sales_incentive_df)
