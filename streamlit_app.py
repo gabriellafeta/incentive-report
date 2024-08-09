@@ -43,6 +43,7 @@ sales_incentive_df = pd.read_csv(sales_incentive)
 #------------------------------------------------------------------------------------------------------
 
 # Manipulating Data
+sales_incentive_df['date'] = pd.to_datetime(sales_incentive_df['date'])
 current_timestamp = pd.Timestamp.now()
 current_day = current_timestamp.day
 
