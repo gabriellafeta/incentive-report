@@ -73,6 +73,8 @@ yesterday_timestamp = current_timestamp - pd.Timedelta(days=1)
 yesterday_day = yesterday_timestamp.day
 
 salesman_main = filtered_df[filtered_df['date'] <= yesterday_timestamp]
+salesman_main['current_month_vendor_count'] = salesman_main['current_month_vendor_count'].astype(int)
+salesman_main['last_month_vendor_count'] = salesman_main['last_month_vendor_count'].astype(int)
 
 current_month_start = current_timestamp.replace(day=1)
 current_month_df = salesman_main[salesman_main['date'] >= current_month_start]
