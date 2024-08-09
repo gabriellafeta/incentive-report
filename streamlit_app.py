@@ -143,8 +143,8 @@ def style_salesman_df(df, font_size='14px'):
 #------------------------------------------------------------------------------------------------------
 # Styled dataframes
 salesman_main_df = style_salesman_df(salesman_main)
+salesman_html = salesman_main_df.to_html()
 
-salesman_main_df_html = salesman_main_df.render()
 
 
 #------------------------------------------------------------------------------------------------------
@@ -163,7 +163,7 @@ with colA_1[0]:
 
 
 with colB[0]:
-    st.write(salesman_main_df_html, unsafe_allow_html=True)
+    st.markdown(salesman_html, unsafe_allow_html=True)
 
 
 
