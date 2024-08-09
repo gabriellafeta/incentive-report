@@ -53,6 +53,13 @@ if selected_supervisor != 'All':
 else:
     filtered_df = sales_incentive_df
 
+positions = ['All'] + list(filtered_df['Salesperson_Position'].unique())
+selected_position = st.selectbox('Select a Salesperson Position', positions)
+
+# Apply Salesperson Position filter
+if selected_position != 'All':
+    filtered_df = filtered_df[filtered_df['Salesperson_Position'] == selected_position]
+
 filtered_df['date'] = pd.to_datetime(filtered_df['date'])
 current_timestamp = filtered_df['date'].max() + pd.Timedelta(days=1)
 
