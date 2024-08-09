@@ -52,7 +52,7 @@ selected_supervisor = st.selectbox('Select a GTM', supervisors)
 sales_incentive_df = sales_incentive_df[sales_incentive_df['Supervisor'] == selected_supervisor]
 
 if selected_supervisor != 'All':
-    filtered_df = sales_incentive_df[sales_incentive_df['supervisor'] == selected_supervisor]
+    filtered_df = sales_incentive_df[sales_incentive_df['Supervisor'] == selected_supervisor]
 else:
     filtered_df = sales_incentive_df
 
