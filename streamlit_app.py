@@ -53,9 +53,7 @@ def get_day_with_suffix(day):
         suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(day % 10, 'th')
     return f"{day}{suffix}"
 
-max_date = sales_incentive_df['date'].max()
-current_day = (max_date - pd.Timedelta(days=1)).day
-current_day_with_suffix = get_day_with_suffix(current_day)
+current_day = current_timestamp.day
 
 yesterday_timestamp = current_timestamp - pd.Timedelta(days=1)
 yesterday_day = yesterday_timestamp.day
@@ -120,7 +118,7 @@ with colA[0]:
     st.title('Sales Incentive Report')
 
 with colA_1[0]:
-    st.markdown(f"<i style='font-size: smaller;'>Update up to {current_day_with_suffix}</i>", unsafe_allow_html=True)
+    st.markdown(f"<i style='font-size: smaller;'>Update up to {current_day - 1}</i>", unsafe_allow_html=True)
 
 
 with colB[0]:
