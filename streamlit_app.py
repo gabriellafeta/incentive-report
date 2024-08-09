@@ -87,7 +87,7 @@ last_month_name = last_month_date.strftime('%B')
 
 name_1 = f"{current_day - 1}th of {current_month_name}"
 
-current_month_column = f'{current_day - 1}th of {current_month_name}th'
+current_month_column = f'{current_day - 1}th of {current_month_name}'
 last_month_column = f'{last_month_name} MTD'
 salesman_main.columns = ['Salesperson', current_month_column, last_month_column]
 
@@ -141,6 +141,12 @@ def style_salesman_df(df, font_size='14px'):
 
     return styler
 #------------------------------------------------------------------------------------------------------
+# Styled dataframes 
+salesman_MTD_styled = style_salesman_df(salesman_main)
+
+
+
+#------------------------------------------------------------------------------------------------------
 
 colA = st.columns(1)
 colA_1 = st.columns(1)
@@ -156,7 +162,7 @@ with colA_1[0]:
 
 
 with colB[0]:
-    st.dataframe(salesman_main)
+    st.write(salesman_MTD_styled.render(), unsafe_allow_html=True)
 
 
 
