@@ -47,9 +47,9 @@ sales_incentive_df['date'] = pd.to_datetime(sales_incentive_df['date'])
 current_timestamp = sales_incentive_df['date'].max() + pd.Timedelta(days=1)
 
 # GTM FILTER
-supervisors = sales_incentive_df['supervisor'].unique()
+supervisors = sales_incentive_df['Supervisor'].unique()
 selected_supervisor = st.selectbox('Select a Supervisor', supervisors)
-sales_incentive_df = sales_incentive_df[sales_incentive_df['supervisor'] == selected_supervisor]
+sales_incentive_df = sales_incentive_df[sales_incentive_df['Supervisor'] == selected_supervisor]
 
 def get_day_with_suffix(day):
     if 11 <= day <= 13:
