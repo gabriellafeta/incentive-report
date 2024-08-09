@@ -88,9 +88,8 @@ current_month_grouped = current_month_df.groupby('Salesperson_Name')['vendor_acc
 last_month_grouped = last_month_df.groupby('Salesperson_Name')['vendor_account_id'].nunique().reset_index(name='last_month_vendor_count')
 
 salesman_main = pd.merge(current_month_grouped, last_month_grouped, on='Salesperson_Name', how='outer').fillna(0)
-salesman_main = filtered_df[filtered_df['date'] <= yesterday_timestamp]
-salesman_main['current_month_vendor_count'] = salesman_main['current_month_vendor_count'].astype(int)
-salesman_main['last_month_vendor_count'] = salesman_main['last_month_vendor_count'].astype(int)
+salesman_main['current_month_vendor_count'] = salesman_main['current_month_vendor_count'].fillna(0).astype(int)
+salesman_main['last_month_vendor_count'] = salesman_main['last_month_vendor_count'].fillna(0).astype(int)
 # Nomeando as colunas
 
 current_date = pd.Timestamp.now()
