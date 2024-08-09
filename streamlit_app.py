@@ -45,7 +45,17 @@ sales_incentive_df = pd.read_csv(sales_incentive)
 # Manipulating Data
 sales_incentive_df['date'] = pd.to_datetime(sales_incentive_df['date'])
 current_timestamp = sales_incentive_df['date'].max() + pd.Timedelta(days=1)
-current_day = current_timestamp.day
+
+def get_day_with_suffix(day):
+    if 11 <= day <= 13:
+        suffix = 'th'
+    else:
+        suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(day % 10, 'th')
+    return f"{day}{suffix}"
+
+max_date = sales_incentive_df['date'].max()
+current_day = (max_date - pd.Timedelta(days=1)).day
+current_day_with_suffix = get_day_with_suffix(current_day)
 
 yesterday_timestamp = current_timestamp - pd.Timedelta(days=1)
 yesterday_day = yesterday_timestamp.day
@@ -110,7 +120,7 @@ with colA[0]:
     st.title('Sales Incentive Report')
 
 with colA_1[0]:
-    st.markdown(f"<i style='font-size: smaller;'>Update up to {current_day - 1}</i>", unsafe_allow_html=True)
+    st.markdown(f"<i style='font-size: smaller;'>Update up to {current_day_with_suffix}</i>", unsafe_allow_html=True)
 
 
 with colB[0]:
