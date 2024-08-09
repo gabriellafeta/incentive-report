@@ -87,9 +87,9 @@ last_month_name = last_month_date.strftime('%B')
 
 name_1 = f"{current_day - 1}th of {current_month_name}"
 
-current_month_column = f'{current_month_name} {current_timestamp - pd.Timedelta(days=1)}th'
+current_month_column = f'{current_day - 1}th of {current_month_name}}th'
 last_month_column = f'{last_month_name} MTD'
-salesman_main.columns = ['Salesperson', name_1, last_month_column]
+salesman_main.columns = ['Salesperson', current_month_column, last_month_column]
 
 # Criando coluna de incremento
 
