@@ -142,6 +142,12 @@ def style_salesman_df(df, font_size='14px'):
 # Styled dataframes
 salesman_main_df = style_salesman_df(salesman_main_grouped)
 salesman_html = salesman_main_df.to_html()
+
+centered_html = f"""
+<div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+    {salesman_html}
+</div>
+"""
 #------------------------------------------------------------------------------------------------------
 
 
@@ -157,9 +163,8 @@ with colA[0]:
 with colA_1[0]:
     st.markdown(f"<i style='font-size: smaller;'>Update up to {current_day - 1}th of {current_month_name}</i>", unsafe_allow_html=True)
 
-
 with colB[0]:
-    st.markdown(salesman_html, unsafe_allow_html=True)
+    st.markdown(centered_html, unsafe_allow_html=True)
 
 
 
