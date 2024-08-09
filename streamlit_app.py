@@ -42,24 +42,20 @@ sales_incentive_df = pd.read_csv(sales_incentive)
 
 #------------------------------------------------------------------------------------------------------
 
-# Manipulating Data
 sales_incentive_df['date'] = pd.to_datetime(sales_incentive_df['date'])
 current_timestamp = sales_incentive_df['date'].max() + pd.Timedelta(days=1)
 
-# GTM FILTER
 supervisors = ['All'] + list(sales_incentive_df['Supervisor'].unique())
 selected_supervisor = st.selectbox('Select a GTM', supervisors)
-sales_incentive_df = sales_incentive_df[sales_incentive_df['Supervisor'] == selected_supervisor]
 
 if selected_supervisor != 'All':
-    filtered_df = sales_incentive_df[sales_incentive_df['supervisor'] == selected_supervisor]
+    filtered_df = sales_incentive_df[sales_incentive_df['Supervisor'] == selected_supervisor]
 else:
     filtered_df = sales_incentive_df
 
 filtered_df['date'] = pd.to_datetime(filtered_df['date'])
 current_timestamp = filtered_df['date'].max() + pd.Timedelta(days=1)
 
-# Table changes
 def get_day_with_suffix(day):
     if 11 <= day <= 13:
         suffix = 'th'
@@ -68,18 +64,13 @@ def get_day_with_suffix(day):
     return f"{day}{suffix}"
 
 current_day = current_timestamp.day
-
 yesterday_timestamp = current_timestamp - pd.Timedelta(days=1)
-yesterday_day = yesterday_timestamp.day
 
 salesman_main = filtered_df[filtered_df['date'] <= yesterday_timestamp]
-
 current_month_start = current_timestamp.replace(day=1)
 current_month_df = salesman_main[salesman_main['date'] >= current_month_start]
 
-# Criando visualização MTD
 days_passed_current_month = (yesterday_timestamp - current_month_start).days + 1
-
 last_month_start = (current_month_start - pd.DateOffset(months=1)).replace(day=1)
 last_month_end = last_month_start + pd.Timedelta(days=days_passed_current_month - 1)
 last_month_df = salesman_main[(salesman_main['date'] >= last_month_start) & (salesman_main['date'] <= last_month_end)]
@@ -88,25 +79,14 @@ current_month_grouped = current_month_df.groupby('Salesperson_Name')['vendor_acc
 last_month_grouped = last_month_df.groupby('Salesperson_Name')['vendor_account_id'].nunique().reset_index(name='last_month_vendor_count')
 
 salesman_main_grouped = pd.merge(current_month_grouped, last_month_grouped, on='Salesperson_Name', how='outer').fillna(0)
-salesman_main_grouped['current_month_vendor_count'] = salesman_main['current_month_vendor_count'].fillna(0).astype(int)
-salesman_main_grouped['last_month_vendor_count'] = salesman_main['last_month_vendor_count'].fillna(0).astype(int)
-# Nomeando as colunas
+salesman_main_grouped['current_month_vendor_count'] = salesman_main_grouped['current_month_vendor_count'].astype(int)
+salesman_main_grouped['last_month_vendor_count'] = salesman_main_grouped['last_month_vendor_count'].astype(int)
 
-current_date = pd.Timestamp.now()
-current_month_name = current_date.strftime('%B')  
-current_day = current_date.day
-
-last_month_date = current_date - pd.DateOffset(months=1)
-last_month_name = last_month_date.strftime('%B')  
-
-
-name_1 = f"{current_day - 1}th of {current_month_name}"
-
-current_month_column = f'{current_day - 1}th of {current_month_name}'
+current_month_name = current_timestamp.strftime('%B')
+current_month_column = f'{get_day_with_suffix(current_day - 1)} of {current_month_name}'
+last_month_name = last_month_start.strftime('%B')
 last_month_column = f'{last_month_name} MTD'
 salesman_main_grouped.columns = ['Salesperson', current_month_column, last_month_column]
-
-# Criando coluna de incremento
 
 salesman_main_grouped['Increment'] = salesman_main_grouped[current_month_column] - salesman_main_grouped[last_month_column]
 
