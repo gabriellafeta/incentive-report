@@ -48,8 +48,6 @@ current_timestamp = sales_incentive_df['date'].max() + pd.Timedelta(days=1)
 
 # GTM FILTER
 supervisors = sales_incentive_df['Supervisor'].unique()
-selected_supervisor = st.selectbox('Select a Supervisor', supervisors)
-sales_incentive_df = sales_incentive_df[sales_incentive_df['Supervisor'] == selected_supervisor]
 
 def get_day_with_suffix(day):
     if 11 <= day <= 13:
@@ -165,6 +163,8 @@ with colA[0]:
     st.title('Sales Incentive Report')
 
 with colA_1[0]:
+    selected_supervisor = st.selectbox('Select a Supervisor', supervisors)
+    sales_incentive_df = sales_incentive_df[sales_incentive_df['Supervisor'] == selected_supervisor]
     st.markdown(f"<i style='font-size: smaller;'>Update up to {current_day - 1}th of {current_month_name}</i>", unsafe_allow_html=True)
 
 
