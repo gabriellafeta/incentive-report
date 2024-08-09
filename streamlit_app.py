@@ -52,9 +52,12 @@ selected_supervisor = st.selectbox('Select a GTM', supervisors)
 sales_incentive_df = sales_incentive_df[sales_incentive_df['Supervisor'] == selected_supervisor]
 
 if selected_supervisor != 'All':
-    sales_incentive_df = sales_incentive_df[sales_incentive_df['Supervisor'] == selected_supervisor]
+    filtered_df = sales_incentive_df[sales_incentive_df['supervisor'] == selected_supervisor]
 else:
-    sales_incentive_df = sales_incentive_df
+    filtered_df = sales_incentive_df
+
+filtered_df['date'] = pd.to_datetime(filtered_df['date'])
+current_timestamp = filtered_df['date'].max() + pd.Timedelta(days=1)
 
 # Table changes
 def get_day_with_suffix(day):
@@ -69,7 +72,7 @@ current_day = current_timestamp.day
 yesterday_timestamp = current_timestamp - pd.Timedelta(days=1)
 yesterday_day = yesterday_timestamp.day
 
-salesman_main = sales_incentive_df[sales_incentive_df['date'] <= yesterday_timestamp]
+salesman_main = filtered_df[filtered_df['date'] <= yesterday_timestamp]
 
 current_month_start = current_timestamp.replace(day=1)
 current_month_df = salesman_main[salesman_main['date'] >= current_month_start]
