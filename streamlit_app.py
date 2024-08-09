@@ -44,7 +44,7 @@ sales_incentive_df = pd.read_csv(sales_incentive)
 
 # Manipulating Data
 sales_incentive_df['date'] = pd.to_datetime(sales_incentive_df['date'])
-current_timestamp = pd.Timestamp.now()
+current_timestamp = sales_incentive_df['date'].max()
 current_day = current_timestamp.day
 
 yesterday_timestamp = current_timestamp - pd.Timedelta(days=1)
@@ -76,7 +76,7 @@ current_day = current_date.day
 last_month_date = current_date - pd.DateOffset(months=1)
 last_month_name = last_month_date.strftime('%B')  
 
-current_month_column = f'{current_month_name} {current_day}th'
+current_month_column = f'{current_month_name} {current_timestamp - pd.Timedelta(days=1)}th'
 last_month_column = f'{last_month_name} MTD'
 salesman_main.columns = ['Salesperson', current_month_column, last_month_column]
 
