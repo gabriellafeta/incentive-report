@@ -46,6 +46,11 @@ sales_incentive_df = pd.read_csv(sales_incentive)
 sales_incentive_df['date'] = pd.to_datetime(sales_incentive_df['date'])
 current_timestamp = sales_incentive_df['date'].max() + pd.Timedelta(days=1)
 
+# GTM FILTER
+supervisors = sales_incentive_df['supervisor'].unique()
+selected_supervisor = st.selectbox('Select a Supervisor', supervisors)
+sales_incentive_df = sales_incentive_df[sales_incentive_df['supervisor'] == selected_supervisor]
+
 def get_day_with_suffix(day):
     if 11 <= day <= 13:
         suffix = 'th'
@@ -147,8 +152,10 @@ def style_salesman_df(df, font_size='14px'):
 # Styled dataframes
 salesman_main_df = style_salesman_df(salesman_main)
 salesman_html = salesman_main_df.to_html()
-
-
+#------------------------------------------------------------------------------------------------------
+# GTM FILTER
+supervisors = sales_incentive_df['supervisor'].unique()
+selected_supervisor = st.selectbox('Select a Supervisor', supervisors)
 
 #------------------------------------------------------------------------------------------------------
 
