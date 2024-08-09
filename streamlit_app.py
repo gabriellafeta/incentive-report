@@ -94,17 +94,22 @@ def classify_performance(diff):
     else:
         return 'Decreasing'
 
-salesman_main['Performance'] = salesman_main['Difference'].apply(classify_performance)
-
+salesman_main['Performance'] = salesman_main['Increment'].apply(classify_performance)
+salesman_main = salesman_main.sort_values(by='Increment', ascending=True)
 
 
 #------------------------------------------------------------------------------------------------------
 
+colA = st.columns(1)
+colB = st.columns(1)
 
-st.title('Sales Incentive Data ')
 
-# Display the DataFrame
-st.dataframe(salesman_main)
+
+with colA[0]:
+    st.title('Sales Incentive Report')
+
+with colB[0]:
+    st.dataframe(salesman_main)
 
 
 
