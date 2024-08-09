@@ -13,6 +13,7 @@ from datetime import datetime
 #------------------------------------------------------------------------------------------------------
 st.set_page_config(layout="wide") # Configuração da página larga
 #------------------------------------------------------------------------------------------------------
+st.title('Sales Incentive Report')
 
 # Uploading data
 
@@ -163,9 +164,6 @@ colA_1 = st.columns(1)
 colB = st.columns(1)
 
 
-
-with colA[0]:
-    st.title('Sales Incentive Report')
 
 with colA_1[0]:
     st.markdown(f"<i style='font-size: smaller;'>Update up to {current_day - 1}th of {current_month_name}</i>", unsafe_allow_html=True)
