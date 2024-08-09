@@ -87,9 +87,9 @@ last_month_df = salesman_main[(salesman_main['date'] >= last_month_start) & (sal
 current_month_grouped = current_month_df.groupby('Salesperson_Name')['vendor_account_id'].nunique().reset_index(name='current_month_vendor_count')
 last_month_grouped = last_month_df.groupby('Salesperson_Name')['vendor_account_id'].nunique().reset_index(name='last_month_vendor_count')
 
-salesman_main = pd.merge(current_month_grouped, last_month_grouped, on='Salesperson_Name', how='outer').fillna(0)
-salesman_main['current_month_vendor_count'] = salesman_main['current_month_vendor_count'].fillna(0).astype(int)
-salesman_main['last_month_vendor_count'] = salesman_main['last_month_vendor_count'].fillna(0).astype(int)
+salesman_main_grouped = pd.merge(current_month_grouped, last_month_grouped, on='Salesperson_Name', how='outer').fillna(0)
+salesman_main_grouped['current_month_vendor_count'] = salesman_main['current_month_vendor_count'].fillna(0).astype(int)
+salesman_main_grouped['last_month_vendor_count'] = salesman_main['last_month_vendor_count'].fillna(0).astype(int)
 # Nomeando as colunas
 
 current_date = pd.Timestamp.now()
@@ -104,11 +104,11 @@ name_1 = f"{current_day - 1}th of {current_month_name}"
 
 current_month_column = f'{current_day - 1}th of {current_month_name}'
 last_month_column = f'{last_month_name} MTD'
-salesman_main.columns = ['Salesperson', current_month_column, last_month_column]
+salesman_main_grouped.columns = ['Salesperson', current_month_column, last_month_column]
 
 # Criando coluna de incremento
 
-salesman_main['Increment'] = salesman_main[current_month_column] - salesman_main[last_month_column]
+salesman_main_grouped['Increment'] = salesman_main_grouped[current_month_column] - salesman_main_grouped[last_month_column]
 
 def classify_performance(diff):
     if diff > 10:
@@ -120,8 +120,8 @@ def classify_performance(diff):
     else:
         return 'Decreasing'
 
-salesman_main['Performance'] = salesman_main['Increment'].apply(classify_performance)
-salesman_main = salesman_main.sort_values(by='Increment', ascending=False)
+salesman_main_grouped['Performance'] = salesman_main_grouped['Increment'].apply(classify_performance)
+salesman_main_grouped = salesman_main_grouped.sort_values(by='Increment', ascending=False)
 
 
 #------------------------------------------------------------------------------------------------------
@@ -160,7 +160,7 @@ def style_salesman_df(df, font_size='14px'):
     return styler
 #------------------------------------------------------------------------------------------------------
 # Styled dataframes
-salesman_main_df = style_salesman_df(salesman_main)
+salesman_main_df = style_salesman_df(salesman_main_grouped)
 salesman_html = salesman_main_df.to_html()
 #------------------------------------------------------------------------------------------------------
 
