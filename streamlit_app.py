@@ -95,7 +95,7 @@ def classify_performance(diff):
         return 'Decreasing'
 
 salesman_main['Performance'] = salesman_main['Increment'].apply(classify_performance)
-salesman_main = salesman_main.sort_values(by='Increment', ascending=True)
+salesman_main = salesman_main.sort_values(by='Increment', ascending=False)
 
 
 #------------------------------------------------------------------------------------------------------
