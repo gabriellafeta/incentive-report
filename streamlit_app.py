@@ -44,7 +44,7 @@ sales_incentive_df = pd.read_csv(sales_incentive)
 
 # Manipulating Data
 sales_incentive_df['date'] = pd.to_datetime(sales_incentive_df['date'])
-current_timestamp = sales_incentive_df['date'].max()
+current_timestamp = sales_incentive_df['date'].max() + pd.Timedelta(days=1)
 current_day = current_timestamp.day
 
 yesterday_timestamp = current_timestamp - pd.Timedelta(days=1)
