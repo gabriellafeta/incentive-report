@@ -67,7 +67,21 @@ last_month_grouped = last_month_df.groupby('Salesperson_Name')['vendor_account_i
 
 salesman_main = pd.merge(current_month_grouped, last_month_grouped, on='Salesperson_Name', how='outer').fillna(0)
 
+# Nomeando as colunas
 
+current_date = pd.Timestamp.now()
+current_month_name = current_date.strftime('%B')  
+current_day = current_date.day
+
+last_month_date = current_date - pd.DateOffset(months=1)
+last_month_name = last_month_date.strftime('%B')  
+
+# Nome da nova coluna para o mês e dia atuais
+current_month_column = f'{current_month_name}_{current_day}'
+last_month_column = f'{last_month_name}_MTD'
+
+# Renomear as colunas
+salesman_main.columns = ['Salesperson', current_month_column, last_month_column]
 
 
 #------------------------------------------------------------------------------------------------------
