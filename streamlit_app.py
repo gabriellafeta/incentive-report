@@ -125,19 +125,22 @@ def style_salesman_df(df, font_size='14px'):
         return f'background-color: {color}'
 
     # Criar o Styler
-    styler = df.style.format(na_rep="-")\
+    styler = df.style.format(na_rep="-", precision=0)\
         .set_table_styles([
             # Estilo do cabeçalho
             {'selector': 'thead th',
              'props': [('background-color', '#1a2634'), ('color', 'white'), ('font-weight', 'bold'), ('text-align', 'center')]},
             # Estilo da fonte e tamanho para toda a tabela
             {'selector': 'table, th, td',
-             'props': [('font-size', font_size)]},
+             'props': [('font-size', font_size), ('text-align', 'center')]},  # Centralizar todas as células
             # Removendo linhas de grade
             {'selector': 'table',
              'props': [('border-collapse', 'collapse'), ('border-spacing', '0'), ('border', '0')]}
         ])\
         .applymap(performance_color, subset=['Performance'])  # Aplicar a coloração baseada no desempenho
+    
+    # Ocultar o índice
+    styler = styler.hide(axis='index')
 
     return styler
 #------------------------------------------------------------------------------------------------------
