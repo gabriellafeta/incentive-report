@@ -52,9 +52,9 @@ selected_supervisor = st.selectbox('Select a GTM', supervisors)
 sales_incentive_df = sales_incentive_df[sales_incentive_df['Supervisor'] == selected_supervisor]
 
 if selected_supervisor != 'All':
-    filtered_df = sales_incentive_df[sales_incentive_df['Supervisor'] == selected_supervisor]
+    sales_incentive_df = sales_incentive_df[sales_incentive_df['Supervisor'] == selected_supervisor]
 else:
-    filtered_df = sales_incentive_df
+    sales_incentive_df = sales_incentive_df
 
 # Table changes
 def get_day_with_suffix(day):
