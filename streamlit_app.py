@@ -62,10 +62,10 @@ last_month_start = (current_month_start - pd.DateOffset(months=1)).replace(day=1
 last_month_end = last_month_start + pd.Timedelta(days=days_passed_current_month - 1)
 last_month_df = salesman_main[(salesman_main['date'] >= last_month_start) & (salesman_main['date'] <= last_month_end)]
 
-current_month_grouped = current_month_df.groupby('salesman')['vendor_account_id'].nunique().reset_index(name='current_month_vendor_count')
-last_month_grouped = last_month_df.groupby('salesman')['vendor_account_id'].nunique().reset_index(name='last_month_vendor_count')
+current_month_grouped = current_month_df.groupby('Salesperson_Name')['vendor_account_id'].nunique().reset_index(name='current_month_vendor_count')
+last_month_grouped = last_month_df.groupby('Salesperson_Name')['vendor_account_id'].nunique().reset_index(name='last_month_vendor_count')
 
-salesman_main = pd.merge(current_month_grouped, last_month_grouped, on='salesman', how='outer').fillna(0)
+salesman_main = pd.merge(current_month_grouped, last_month_grouped, on='Salesperson_Name', how='outer').fillna(0)
 
 
 
