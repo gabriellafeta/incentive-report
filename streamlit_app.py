@@ -84,9 +84,12 @@ current_day = current_date.day
 last_month_date = current_date - pd.DateOffset(months=1)
 last_month_name = last_month_date.strftime('%B')  
 
+
+name_1 = f"{current_day - 1}th of {current_month_name}"
+
 current_month_column = f'{current_month_name} {current_timestamp - pd.Timedelta(days=1)}th'
 last_month_column = f'{last_month_name} MTD'
-salesman_main.columns = ['Salesperson', current_month_column, last_month_column]
+salesman_main.columns = ['Salesperson', name_1, last_month_column]
 
 # Criando coluna de incremento
 
@@ -107,6 +110,37 @@ salesman_main = salesman_main.sort_values(by='Increment', ascending=False)
 
 
 #------------------------------------------------------------------------------------------------------
+# Pandas Styler
+def style_salesman_df(df, font_size='14px'):
+    def performance_color(val):
+        color = ''
+        if val == "Top performer":
+            color = 'green'
+        elif val == "Increasing":
+            color = 'orange'
+        elif val == "Stable":
+            color = 'lightyellow'
+        elif val == "Decreasing":
+            color = 'red'
+        return f'background-color: {color}'
+
+    # Criar o Styler
+    styler = df.style.format(na_rep="-")\
+        .set_table_styles([
+            # Estilo do cabeçalho
+            {'selector': 'thead th',
+             'props': [('background-color', '#1a2634'), ('color', 'white'), ('font-weight', 'bold'), ('text-align', 'center')]},
+            # Estilo da fonte e tamanho para toda a tabela
+            {'selector': 'table, th, td',
+             'props': [('font-size', font_size)]},
+            # Removendo linhas de grade
+            {'selector': 'table',
+             'props': [('border-collapse', 'collapse'), ('border-spacing', '0'), ('border', '0')]}
+        ])\
+        .applymap(performance_color, subset=['Performance'])  # Aplicar a coloração baseada no desempenho
+
+    return styler
+#------------------------------------------------------------------------------------------------------
 
 colA = st.columns(1)
 colA_1 = st.columns(1)
@@ -118,7 +152,7 @@ with colA[0]:
     st.title('Sales Incentive Report')
 
 with colA_1[0]:
-    st.markdown(f"<i style='font-size: smaller;'>Update up to {current_day - 1} th of {current_month_name}</i>", unsafe_allow_html=True)
+    st.markdown(f"<i style='font-size: smaller;'>Update up to {current_day - 1}th of {current_month_name}</i>", unsafe_allow_html=True)
 
 
 with colB[0]:
