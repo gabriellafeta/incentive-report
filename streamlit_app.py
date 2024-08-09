@@ -47,7 +47,7 @@ sales_incentive_df['date'] = pd.to_datetime(sales_incentive_df['date'])
 current_timestamp = sales_incentive_df['date'].max() + pd.Timedelta(days=1)
 
 # GTM FILTER
-supervisors = ['All'] + list(sales_incentive_df['supervisor'].unique())
+supervisors = ['All'] + list(sales_incentive_df['Supervisor'].unique())
 selected_supervisor = st.selectbox('Select a GTM', supervisors)
 sales_incentive_df = sales_incentive_df[sales_incentive_df['Supervisor'] == selected_supervisor]
 
