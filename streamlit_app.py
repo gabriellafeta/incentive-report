@@ -101,12 +101,17 @@ salesman_main = salesman_main.sort_values(by='Increment', ascending=False)
 #------------------------------------------------------------------------------------------------------
 
 colA = st.columns(1)
+colA_1 = st.columns(1)
 colB = st.columns(1)
 
 
 
 with colA[0]:
     st.title('Sales Incentive Report')
+
+with colA_1[0]:
+    st.markdown(f"<i style='font-size: smaller;'>Update up to {current_day - 1}</i>", unsafe_allow_html=True)
+
 
 with colB[0]:
     st.dataframe(salesman_main)
