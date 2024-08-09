@@ -76,12 +76,26 @@ current_day = current_date.day
 last_month_date = current_date - pd.DateOffset(months=1)
 last_month_name = last_month_date.strftime('%B')  
 
-# Nome da nova coluna para o mês e dia atuais
-current_month_column = f'{current_month_name}_{current_day}'
-last_month_column = f'{last_month_name}_MTD'
-
-# Renomear as colunas
+current_month_column = f'{current_month_name} {current_day}th'
+last_month_column = f'{last_month_name} MTD'
 salesman_main.columns = ['Salesperson', current_month_column, last_month_column]
+
+# Criando coluna de incremento
+
+salesman_main['Difference'] = salesman_main[current_month_column] - salesman_main[last_month_column]
+
+def classify_performance(diff):
+    if diff > 10:
+        return 'Top performer'
+    elif 4 < diff <= 10:
+        return 'Increasing'
+    elif 0 <= diff <= 4:
+        return 'Stable'
+    else:
+        return 'Decreasing'
+
+salesman_main['Performance'] = salesman_main['Difference'].apply(classify_performance)
+
 
 
 #------------------------------------------------------------------------------------------------------
