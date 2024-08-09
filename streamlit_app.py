@@ -82,7 +82,7 @@ salesman_main.columns = ['Salesperson', current_month_column, last_month_column]
 
 # Criando coluna de incremento
 
-salesman_main['Difference'] = salesman_main[current_month_column] - salesman_main[last_month_column]
+salesman_main['Increment'] = salesman_main[current_month_column] - salesman_main[last_month_column]
 
 def classify_performance(diff):
     if diff > 10:
