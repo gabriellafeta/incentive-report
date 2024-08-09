@@ -153,11 +153,7 @@ def style_salesman_df(df, font_size='14px'):
 salesman_main_df = style_salesman_df(salesman_main)
 salesman_html = salesman_main_df.to_html()
 #------------------------------------------------------------------------------------------------------
-# GTM FILTER
-supervisors = sales_incentive_df['supervisor'].unique()
-selected_supervisor = st.selectbox('Select a Supervisor', supervisors)
 
-#------------------------------------------------------------------------------------------------------
 
 colA = st.columns(1)
 colA_1 = st.columns(1)
