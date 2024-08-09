@@ -53,6 +53,14 @@ if selected_supervisor != 'All':
 else:
     filtered_df = sales_incentive_df
 
+position = ['All'] + list(sales_incentive_df['Salesperson_Position'].unique())
+selected_position = st.selectbox('Select a Salesperson Position', position)
+
+if selected_supervisor != 'All':
+    filtered_df = sales_incentive_df[sales_incentive_df['Salesperson_Position'] == selected_position]
+else:
+    filtered_df = sales_incentive_df
+
 filtered_df['date'] = pd.to_datetime(filtered_df['date'])
 current_timestamp = filtered_df['date'].max() + pd.Timedelta(days=1)
 
@@ -142,6 +150,12 @@ def style_salesman_df(df, font_size='14px'):
 # Styled dataframes
 salesman_main_df = style_salesman_df(salesman_main_grouped)
 salesman_html = salesman_main_df.to_html()
+
+centered_html = f"""
+<div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+    {salesman_html}
+</div>
+"""
 #------------------------------------------------------------------------------------------------------
 
 
@@ -159,7 +173,7 @@ with colA_1[0]:
 
 
 with colB[0]:
-    st.markdown(salesman_html, unsafe_allow_html=True)
+    st.markdown(centered_html, unsafe_allow_html=True)
 
 
 
