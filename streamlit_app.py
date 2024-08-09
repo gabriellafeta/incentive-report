@@ -40,11 +40,42 @@ blob_content = blob_client.download_blob().content_as_text()
 sales_incentive = StringIO(blob_content)
 sales_incentive_df = pd.read_csv(sales_incentive)
 
+#------------------------------------------------------------------------------------------------------
+
+# Manipulating Data
+current_timestamp = pd.Timestamp.now()
+current_day = current_timestamp.day
+
+yesterday_timestamp = current_timestamp - pd.Timedelta(days=1)
+yesterday_day = yesterday_timestamp.day
+
+salesman_main = sales_incentive_df[sales_incentive_df['date'] <= yesterday_timestamp]
+
+current_month_start = current_timestamp.replace(day=1)
+current_month_df = salesman_main[salesman_main['date'] >= current_month_start]
+
+# Criando visualização MTD
+days_passed_current_month = (yesterday_timestamp - current_month_start).days + 1
+
+last_month_start = (current_month_start - pd.DateOffset(months=1)).replace(day=1)
+last_month_end = last_month_start + pd.Timedelta(days=days_passed_current_month - 1)
+last_month_df = salesman_main[(salesman_main['date'] >= last_month_start) & (salesman_main['date'] <= last_month_end)]
+
+current_month_grouped = current_month_df.groupby('salesman')['vendor_account_id'].nunique().reset_index(name='current_month_vendor_count')
+last_month_grouped = last_month_df.groupby('salesman')['vendor_account_id'].nunique().reset_index(name='last_month_vendor_count')
+
+salesman_main = pd.merge(current_month_grouped, last_month_grouped, on='salesman', how='outer').fillna(0)
+
+
+
+
+#------------------------------------------------------------------------------------------------------
+
 
 st.title('Sales Incentive Data ')
 
 # Display the DataFrame
-st.dataframe(sales_incentive_df)
+st.dataframe(salesman_main)
 
 
 
