@@ -124,7 +124,7 @@ def style_salesman_df(df, font_size='14px'):
         elif val == "Stable":
             color = 'lightyellow'
         elif val == "Decreasing":
-            color = 'red'
+            color = '#FF9999'
         return f'background-color: {color}'
 
     # Criar o Styler
