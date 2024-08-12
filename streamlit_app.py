@@ -118,7 +118,7 @@ def style_salesman_df(df, font_size='14px'):
     def performance_color(val):
         color = ''
         if val == "Top performer":
-            color = 'green'
+            color = '#99FF99'
         elif val == "Increasing":
             color = 'orange'
         elif val == "Stable":
