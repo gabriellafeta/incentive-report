@@ -109,7 +109,7 @@ def classify_performance(diff):
         return 'Decreasing'
 
 salesman_main_grouped['Performance'] = salesman_main_grouped['Increment'].apply(classify_performance)
-salesman_main_grouped = salesman_main_grouped.sort_values(by='Increment', ascending=False)
+salesman_main_grouped = salesman_main_grouped.sort_values(by='current_month_vendor_count', ascending=False)
 
 
 #------------------------------------------------------------------------------------------------------
