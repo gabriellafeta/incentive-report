@@ -23,8 +23,6 @@ if connection_string is None:
 blob_service_client = BlobServiceClient.from_connection_string(connection_string)
 
 container_name = 'expansionbees0001'
-blob_name = 'blob0001'
-
 container_client = blob_service_client.get_container_client(container_name)
 
 bees_logo = "bezinho.jpg"
