@@ -13,8 +13,6 @@ from datetime import datetime
 #------------------------------------------------------------------------------------------------------
 st.set_page_config(layout="wide") # Configuração da página larga
 #------------------------------------------------------------------------------------------------------
-st.title('BEES Sales Leaderboard Report')
-
 # Uploading data
 
 connection_string = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
@@ -30,6 +28,20 @@ blob_name = 'blob0001'
 
 container_client = blob_service_client.get_container_client(container_name)
 
+bees_logo = "bezinho.png"
+blob_client_logo = blob_service_client.get_blob_client(container=container_name, blob=bees_logo)
+blob_content_logo = blob_client_logo.download_blob().readall()
+
+
+col1, col2 = st.columns([1, 5])
+
+with col1:
+    st.image(blob_content_logo, use_column_width=True)
+
+with col2:
+    st.title("BEES Sales Leaderboard Report")
+
+
 #------------------------------------------------------------------------------------------------------
 
 #### Mandar arquivos na pasta DataID para o Azure Blob Storage
@@ -42,7 +54,12 @@ sales_incentive = StringIO(blob_content)
 sales_incentive_df = pd.read_csv(sales_incentive)
 
 
+
 ##### Import Images
+
+bees_logo = "bezinho.png"
+blob_client_logo = blob_service_client.get_blob_client(container=container_name, blob=bees_logo)
+blob_content_logo = blob_client_logo.download_blob().readall()
 
 
 
