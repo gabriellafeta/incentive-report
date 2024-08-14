@@ -36,6 +36,7 @@ col1, col2 = st.columns([1, 5])
 
 with col1:
     st.image(blob_content_logo, use_column_width=True)
+    st.title("BEES Sales Leaderboard Report")
 
 with col2:
     st.title("BEES Sales Leaderboard Report")
