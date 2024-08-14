@@ -36,7 +36,6 @@ col1, col2 = st.columns([1, 5])
 
 with col1:
     st.image(blob_content_logo, use_column_width=True)
-    st.title("BEES Sales Leaderboard Report")
 
 with col2:
     st.title("BEES Sales Leaderboard Report")
@@ -157,12 +156,12 @@ def style_salesman_df(df, font_size='14px'):
              'props': [('background-color', '#1a2634'), ('color', 'white'), ('font-weight', 'bold'), ('text-align', 'center')]},
             # Estilo da fonte e tamanho para toda a tabela
             {'selector': 'table, th, td',
-             'props': [('font-size', font_size), ('text-align', 'center')]},  # Centralizar todas as células
+             'props': [('font-size', font_size), ('text-align', 'center')]}, 
             # Removendo linhas de grade
             {'selector': 'table',
              'props': [('border-collapse', 'collapse'), ('border-spacing', '0'), ('border', '0')]}
         ])\
-        .applymap(performance_color, subset=['Performance'])  # Aplicar a coloração baseada no desempenho
+        .applymap(performance_color, subset=['Performance'])
     
     # Ocultar o índice
     styler = styler.hide(axis='index')
@@ -180,8 +179,6 @@ centered_html = f"""
 """
 #------------------------------------------------------------------------------------------------------
 
-
-colA = st.columns(1)
 colA_1 = st.columns(1)
 colB = st.columns(1)
 
