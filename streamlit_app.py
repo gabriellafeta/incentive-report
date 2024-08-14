@@ -13,7 +13,7 @@ from datetime import datetime
 #------------------------------------------------------------------------------------------------------
 st.set_page_config(layout="wide") # Configuração da página larga
 #------------------------------------------------------------------------------------------------------
-st.title('Sales Incentive Report')
+st.title('BEES Sales Leaderboard Report')
 
 # Uploading data
 
@@ -40,6 +40,11 @@ blob_client = blob_service_client.get_blob_client(container=container_name, blob
 blob_content = blob_client.download_blob().content_as_text()
 sales_incentive = StringIO(blob_content)
 sales_incentive_df = pd.read_csv(sales_incentive)
+
+
+##### Import Images
+
+
 
 #------------------------------------------------------------------------------------------------------
 
