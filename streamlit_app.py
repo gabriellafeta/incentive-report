@@ -54,7 +54,7 @@ sales_incentive_df = pd.read_csv(sales_incentive)
 
 ##### Import Images
 
-bees_logo = "bezinho.png"
+bees_logo = "bezinho.jpg"
 blob_client_logo = blob_service_client.get_blob_client(container=container_name, blob=bees_logo)
 blob_content_logo = blob_client_logo.download_blob().readall()
 
