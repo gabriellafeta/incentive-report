@@ -23,12 +23,11 @@ if connection_string is None:
 blob_service_client = BlobServiceClient.from_connection_string(connection_string)
 
 container_name = 'expansionbees0001'
-local_file_path = r'C:\Users\gabri\OneDrive\Área de Trabalho\DataID'
 blob_name = 'blob0001'
 
 container_client = blob_service_client.get_container_client(container_name)
 
-bees_logo = "bezinho.png"
+bees_logo = "bezinho.jpg"
 blob_client_logo = blob_service_client.get_blob_client(container=container_name, blob=bees_logo)
 blob_content_logo = blob_client_logo.download_blob().readall()
 
