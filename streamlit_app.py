@@ -99,9 +99,9 @@ salesman_main_grouped.columns = ['Salesperson', current_month_column, last_month
 salesman_main_grouped['Increment'] = salesman_main_grouped[current_month_column] - salesman_main_grouped[last_month_column]
 
 def classify_performance(diff):
-    if diff > 10:
+    if diff >= 10:
         return 'Top performer'
-    elif 4 < diff <= 10:
+    elif 4 < diff < 10:
         return 'Increasing'
     elif 0 <= diff <= 4:
         return 'Stable'
