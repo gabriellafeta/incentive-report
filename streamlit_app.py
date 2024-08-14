@@ -25,15 +25,15 @@ blob_service_client = BlobServiceClient.from_connection_string(connection_string
 container_name = 'expansionbees0001'
 container_client = blob_service_client.get_container_client(container_name)
 
-# bees_logo = "bezinho.jpg"
-# blob_client_logo = blob_service_client.get_blob_client(container=container_name, blob=bees_logo)
-# blob_content_logo = blob_client_logo.download_blob().readall()
+bees_logo = "bezinho.jpg"
+blob_client_logo = blob_service_client.get_blob_client(container=container_name, blob=bees_logo)
+blob_content_logo = blob_client_logo.download_blob().readall()
 
 
 col1, col2 = st.columns([1, 5])
 
-# with col1:
-#     st.image(blob_content_logo, use_column_width=True)
+with col1:
+    st.image(blob_content_logo, use_column_width=True)
 
 with col2:
     st.title("BEES Sales Leaderboard Report")
