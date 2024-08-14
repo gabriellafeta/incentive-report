@@ -61,8 +61,8 @@ selected_position = st.selectbox('Select a Salesperson Position', positions)
 if selected_position != 'All':
     filtered_df = filtered_df[filtered_df['Salesperson_Position'] == selected_position]
 
-filtered_df['date'] = pd.to_datetime(filtered_df['date'])
-current_timestamp = filtered_df['date'].max() + pd.Timedelta(days=1)
+filtered_df['placement_date'] = pd.to_datetime(filtered_df['placement_date'])
+current_timestamp = filtered_df['placement_date'].max() + pd.Timedelta(days=1)
 
 def get_day_with_suffix(day):
     if 11 <= day <= 13:
@@ -74,14 +74,14 @@ def get_day_with_suffix(day):
 current_day = current_timestamp.day
 yesterday_timestamp = current_timestamp - pd.Timedelta(days=1)
 
-salesman_main = filtered_df[filtered_df['date'] <= yesterday_timestamp]
+salesman_main = filtered_df[filtered_df['placement_date'] <= yesterday_timestamp]
 current_month_start = current_timestamp.replace(day=1)
-current_month_df = salesman_main[salesman_main['date'] >= current_month_start]
+current_month_df = salesman_main[salesman_main['placement_date'] >= current_month_start]
 
 days_passed_current_month = (yesterday_timestamp - current_month_start).days + 1
 last_month_start = (current_month_start - pd.DateOffset(months=1)).replace(day=1)
 last_month_end = last_month_start + pd.Timedelta(days=days_passed_current_month - 1)
-last_month_df = salesman_main[(salesman_main['date'] >= last_month_start) & (salesman_main['date'] <= last_month_end)]
+last_month_df = salesman_main[(salesman_main['placement_date'] >= last_month_start) & (salesman_main['placement_date'] <= last_month_end)]
 
 current_month_grouped = current_month_df.groupby('Salesperson_Name')['vendor_account_id'].nunique().reset_index(name='current_month_vendor_count')
 last_month_grouped = last_month_df.groupby('Salesperson_Name')['vendor_account_id'].nunique().reset_index(name='last_month_vendor_count')
