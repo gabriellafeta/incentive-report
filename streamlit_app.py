@@ -25,22 +25,15 @@ blob_service_client = BlobServiceClient.from_connection_string(connection_string
 container_name = 'expansionbees0001'
 container_client = blob_service_client.get_container_client(container_name)
 
-##### Import Images
-
 bees_logo = "bezinho.jpg"
 blob_client_logo = blob_service_client.get_blob_client(container=container_name, blob=bees_logo)
 blob_content_logo = blob_client_logo.download_blob().readall()
-
-new_width = int(blob_content_logo.width * 0.5)
-new_height = int(blob_content_logo.height * 0.5)
-resized_image = blob_content_logo.resize((new_width, new_height))
-
 
 
 col1, col2 = st.columns([1, 5])
 
 with col1:
-    st.image(resized_image, use_column_width=True)
+    st.image(blob_content_logo, use_column_width=True)
 
 with col2:
     st.title("BEES Sales Leaderboard Report")
@@ -56,6 +49,16 @@ blob_client = blob_service_client.get_blob_client(container=container_name, blob
 blob_content = blob_client.download_blob().content_as_text()
 sales_incentive = StringIO(blob_content)
 sales_incentive_df = pd.read_csv(sales_incentive)
+
+
+
+##### Import Images
+
+bees_logo = "bezinho.jpg"
+blob_client_logo = blob_service_client.get_blob_client(container=container_name, blob=bees_logo)
+blob_content_logo = blob_client_logo.download_blob().readall()
+
+
 
 #------------------------------------------------------------------------------------------------------
 
