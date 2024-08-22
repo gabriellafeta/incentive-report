@@ -129,8 +129,17 @@ def classify_performance(diff):
 
 salesman_main_grouped['Performance'] = salesman_main_grouped['Increment'].apply(classify_performance)
 salesman_main_grouped = salesman_main_grouped.sort_values(by='Increment', ascending=False)
+#------------------------------------------------------------------------------------------------------
+# Totals table
 
+last_month_sum = salesman_main_grouped[last_month_column].sum()
+current_month_sum = salesman_main_grouped[current_month_column].sum()
 
+# Creating a new DataFrame with the sums
+summary_table = pd.DataFrame({
+    'Total Current Month': [current_month_sum],
+    'Total Last Month': [last_month_sum]
+})
 #------------------------------------------------------------------------------------------------------
 # Pandas Styler
 def style_salesman_df(df, font_size='14px'):
@@ -175,15 +184,28 @@ centered_html = f"""
     {salesman_html}
 </div>
 """
+#-----------------------------------------------------------------------------------------------------
+salesman_total = style_salesman_df(summary_table)
+salesman_html_total = salesman_total.to_html()
+
+centered_html_total = f"""
+<div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+    {salesman_html_total}
+</div>
+"""
 #------------------------------------------------------------------------------------------------------
 
 colA_1 = st.columns(1)
 colB = st.columns(1)
+colB_1 = st.columns(1)
 
 
 
 with colA_1[0]:
     st.markdown(f"<i style='font-size: smaller;'>Update up to {current_day - 1}th of {current_month_name}</i>", unsafe_allow_html=True)
+
+with colB[0]:
+    st.markdown(salesman_html_total, unsafe_allow_html=True)
 
 with colB[0]:
     st.markdown(centered_html, unsafe_allow_html=True)
