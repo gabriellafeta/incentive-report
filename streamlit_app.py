@@ -217,9 +217,8 @@ centered_html_total = f"""
 #------------------------------------------------------------------------------------------------------
 
 colA_1 = st.columns(1)
-colB = st.columns(1)
 colB_1 = st.columns(1)
-
+colB = st.columns(1)
 
 
 with colA_1[0]:
