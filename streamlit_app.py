@@ -128,6 +128,7 @@ def classify_performance(diff):
         return 'Decreasing'
 
 salesman_main_grouped['Performance'] = salesman_main_grouped['Increment'].apply(classify_performance)
+salesman_main_grouped['Rank'] = salesman_main_grouped.index + 1
 salesman_main_grouped = salesman_main_grouped.sort_values(by='Increment', ascending=False)
 #------------------------------------------------------------------------------------------------------
 # Totals table
