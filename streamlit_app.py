@@ -127,9 +127,10 @@ def classify_performance(diff):
     else:
         return 'Decreasing'
 
-salesman_main_grouped['Performance'] = salesman_main_grouped['Increment'].apply(classify_performance)
-salesman_main_grouped['Rank'] = salesman_main_grouped.index + 1
 salesman_main_grouped = salesman_main_grouped.sort_values(by='Increment', ascending=False)
+salesman_main_grouped['Rank'] = range(1, len(salesman_main_grouped) + 1)
+columns_order = ['Rank'] + [col for col in salesman_main_grouped.columns if col != 'Rank']
+salesman_main_grouped = salesman_main_grouped[columns_order]
 #------------------------------------------------------------------------------------------------------
 # Totals table
 
