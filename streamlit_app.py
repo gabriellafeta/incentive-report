@@ -174,9 +174,30 @@ def style_salesman_df(df, font_size='14px'):
     styler = styler.hide(axis='index')
 
     return styler
+
+
+def style_salesman_df_2(df, font_size='14px'):
+
+    # Criar o Styler
+    styler = df.style.format(na_rep="-", precision=0)\
+        .set_table_styles([
+            # Estilo do cabeçalho
+            {'selector': 'thead th',
+             'props': [('background-color', '#1a2634'), ('color', 'white'), ('font-weight', 'bold'), ('text-align', 'center')]},
+            # Estilo da fonte e tamanho para toda a tabela
+            {'selector': 'table, th, td',
+             'props': [('font-size', font_size), ('text-align', 'center')]}, 
+            # Removendo linhas de grade
+            {'selector': 'table',
+             'props': [('border-collapse', 'collapse'), ('border-spacing', '0'), ('border', '0')]}
+        ])
+    # Ocultar o índice
+    styler = styler.hide(axis='index')
+
+    return styler
 #------------------------------------------------------------------------------------------------------
 # Styled dataframes
-salesman_main_df = style_salesman_df(salesman_main_grouped)
+salesman_main_df = style_salesman_df_2(salesman_main_grouped)
 salesman_html = salesman_main_df.to_html()
 
 centered_html = f"""
