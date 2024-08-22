@@ -197,7 +197,7 @@ def style_salesman_df_2(df, font_size='14px'):
     return styler
 #------------------------------------------------------------------------------------------------------
 # Styled dataframes
-salesman_main_df = style_salesman_df_2(salesman_main_grouped)
+salesman_main_df = style_salesman_df(salesman_main_grouped)
 salesman_html = salesman_main_df.to_html()
 
 centered_html = f"""
@@ -206,7 +206,7 @@ centered_html = f"""
 </div>
 """
 #-----------------------------------------------------------------------------------------------------
-salesman_total = style_salesman_df(summary_table)
+salesman_total = style_salesman_df_2(summary_table)
 salesman_html_total = salesman_total.to_html()
 
 centered_html_total = f"""
